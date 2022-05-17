@@ -70,29 +70,27 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
           </execution>
         </executions>
       </plugin>
-      <plugin>
+     <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.9-SNAPSHOT</version>
-        </plugin>
-       <plugin>
-          <groupId>org.jacoco</groupId>
-          <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.5</version>
-            <!-- your existing configuration -->
-            <!-- merging related config START -->          
-          <configuration>
-             <fileSets>
-                  <fileSet>
-                     <directory>${project.build.directory}</directory>
-                        <includes>
-                            <include>*.exec</include>
-                        </includes>
-                  </fileSet>
-             </fileSets>
-          </configuration>
-            <!-- merging related config END -->          
-        </plugin>
+        <version>0.8.6</version>
+      <executions>
+        <execution>
+          <id>prepare-agent</id>
+          <goals>
+            <goal>prepare-agent</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+    <plugin>
+      <groupId>org.eluder.coveralls</groupId>
+      <artifactId>coveralls-maven-plugin</artifactId>
+      <version>4.3.0</version>
+      <configuration>
+        <repoToken>${{ secrets.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 }}</repoToken>
+      </configuration>
+    </plugin>
     </plugins>
 </build>
 
