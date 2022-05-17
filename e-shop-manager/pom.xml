@@ -75,6 +75,24 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.8.9-SNAPSHOT</version>
         </plugin>
+       <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.5</version>
+            <!-- your existing configuration -->
+            <!-- merging related config START -->          
+          <configuration>
+             <fileSets>
+                  <fileSet>
+                     <directory>${project.build.directory}</directory>
+                        <includes>
+                            <include>*.exec</include>
+                        </includes>
+                  </fileSet>
+             </fileSets>
+          </configuration>
+            <!-- merging related config END -->          
+        </plugin>
     </plugins>
 </build>
 
