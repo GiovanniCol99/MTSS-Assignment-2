@@ -20,4 +20,4 @@ jobs:
       run: mvn clean package jacoco:report
 
     - name: Coveralls Coverage Report Submission
-      run: mvn coveralls:report --define repoToken=${{ secrets.COVERALLS_TOKEN }}
+      run: mvn coveralls:report --define repoToken=${{ secrets.SECRET_TOKEN }}
