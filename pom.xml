@@ -94,21 +94,20 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     </execution>
   </executions>
   <configuration>
-    <outputDirectory>MTSS-Assignment-2/e-shop-manager</outputDirectory>
+    <outputDirectory>${project.build.directory}/e-shop-manager/jacoco</outputDirectory>
   </configuration>
 </plugin>
     <plugin>
       <groupId>org.eluder.coveralls</groupId>
       <artifactId>coveralls-maven-plugin</artifactId>
       <version>4.3.0</version>
-      <configuration>
-        <repoToken>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</repoToken>
-      </configuration>
-      <configuration>
-        <jacocoReports>
-          <param>MTSS-Assignment-2/e-shop-manager</param>
-        </jacocoReports>
-      </configuration>
+      <dependencies>
+        <dependency>
+          <groupId>javax.xml.bind</groupId>
+          <artifactId>jaxb-api</artifactId>
+          <version>2.3.1</version>
+        </dependency>
+      </dependencies>
     </plugin>
     </plugins>
 </build>

@@ -19,5 +19,5 @@ jobs:
     - name: Build with Maven
       run: mvn clean package jacoco:report
 
-    - name: Coveralls Coverage Report Submission
+    - name: Coverall Coverage Report Submission
       run: mvn coveralls:report --define repoToken=${{ secrets.SECRET_TOKEN }}
