@@ -90,14 +90,14 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
               <goal>prepare-agent</goal>
             </goals>
          </execution>
-         <execution>
+         <!--execution>
             <id>report</id>
             <phase>test</phase>
             <goals>
               <goal>report</goal>
             </goals>
           </execution>
-        </executions>
+        </executions-->
       </plugin>
 
       <plugin>
