@@ -20,4 +20,4 @@ jobs:
       run: mvn -f ./e-shop-manager/pom.xml clean package jacoco:report
 
     - name: Coverall Coverage Report Submission
-      run: mvn "-DgroupId=org.eluder.coveralls" coveralls:report --define repoToken=${{ secrets.SECRET_TOKEN }}
+      run: mvn -f ./e-shop-manager/pom.xml coveralls:report --define repoToken=${{ secrets.SECRET_TOKEN }}
