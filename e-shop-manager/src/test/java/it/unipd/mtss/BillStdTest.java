@@ -7,9 +7,11 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runners.parameterized.BlockJUnit4ClassRunnerWithParameters;
 import org.junit.Assert;
 import it.unipd.mtss.model.itemType;
 import it.unipd.mtss.model.EItem;
+import it.unipd.mtss.business.Bill;
 import it.unipd.mtss.business.exception.BillException;
 import it.unipd.mtss.BillStd;
 
@@ -42,6 +44,15 @@ public class BillStdTest {
         billItems.add(kb1);
 
         assertEquals(81.0, bill.getOrderPrice(billItems), 0.0);
+    }
+
+    @Test(expected = BillException.class)
+    public void testGetOrderPriceWithInvalidPriceValue() throws BillException {
+        billItems.add(cpu1);
+        billItems.add(mb2);
+        billItems.add(new EItem(itemType.Processor, "invalidCpu", -1.0));
+
+        double tot = bill.getOrderPrice(billItems);
     }
 
     
