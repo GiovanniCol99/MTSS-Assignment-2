@@ -38,7 +38,7 @@ public class BillStdTest {
     }
 
     @Test
-    public void testGetOrderPrice() throws BillException {
+    public void testGetOrderPriceWithValidValues() throws BillException {
         billItems.add(cpu1);
         billItems.add(mb2);
         billItems.add(kb1);
