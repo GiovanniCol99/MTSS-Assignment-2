@@ -20,4 +20,8 @@ public class EItem {
     public double getPrice(){
         return price;
     }
+
+    public itemType getItemType(){
+        return article;
+    }
 }
