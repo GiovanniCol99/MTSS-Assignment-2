@@ -17,5 +17,5 @@
 	<module name="FileTabCharacter"/>
 	<module name="Header">
         <property name="header" value="////////////////////////////////////////////////////////////////////\n// [GIOVANNI] [MORETTI] [1217655]\n// [GIOVANNI] [COLANGELO] [2008070]\n////////////////////////////////////////////////////////////////////" />
-    	</module>
+    </module>
 </module>
