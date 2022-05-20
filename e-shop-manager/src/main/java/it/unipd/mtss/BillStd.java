@@ -15,6 +15,9 @@ public class BillStd implements Bill {
     public double getOrderPrice(List<EItem> itemsOrdered) throws BillException{
         int i = 0;
         double tot = 0;
+        if(itemsOrdered.size() == 0){
+            throw new BillException("invalid list size: 0 items");
+        }
         while(i < itemsOrdered.size()){
             if(itemsOrdered.get(i).getPrice() < 0) {
                 throw new BillException("invalid price value: negative value");
