@@ -12,7 +12,9 @@
 		<module name="IllegalImport"/>
 		<module name="NeedBraces"/>
 	</module>
-	<module name="FileLength"/>
+	<module name="FileLength">
+		<property name="max" value="120"/>
+	</module>
 	<module name="LineLength"/> <!-- default: lines up to 80 characters long -->
 	<module name="FileTabCharacter"/>
 	<module name="Header">
