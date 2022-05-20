@@ -10,5 +10,7 @@ import it.unipd.mtss.business.exception.BillException;
 import it.unipd.mtss.model.EItem;
 
 public interface Bill {
+    int getProcessorNumber(List<EItem> itemsOrdered);
+    double getCheaperProcessor(List<EItem> itemsOrdered);
     double getOrderPrice(List<EItem> itemsOrdered) throws BillException;
 }
