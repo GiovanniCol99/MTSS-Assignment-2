@@ -12,8 +12,6 @@ import it.unipd.mtss.business.exception.BillException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.maven.model.License;
-
 import it.unipd.mtss.business.Bill;
 
 public class BillStd implements Bill {

@@ -4,11 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.DoubleFunction;
 
-import org.apache.xerces.impl.dv.xs.ListDV;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import it.unipd.mtss.model.itemType;
 import it.unipd.mtss.model.EItem;
