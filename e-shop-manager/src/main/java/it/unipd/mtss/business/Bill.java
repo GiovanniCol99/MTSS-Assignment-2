@@ -12,6 +12,4 @@ import it.unipd.mtss.model.itemType;
 
 public interface Bill {
     int getItemNumber(List<EItem> itemsOrdered, itemType article);
-    double getCheaperItem(List<EItem> itemsOrdered, itemType article);
-    double getOrderPrice(List<EItem> itemsOrdered) throws BillException;
 }
