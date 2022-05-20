@@ -27,6 +27,7 @@ public class BillStdTest {
     private final EItem mb2 = new EItem(itemType.Motherboard, "mb2", 20.5);
     private final EItem mouse1 = new EItem(itemType.Mouse, "mouse1", 10.0);
     private final EItem mouse2 = new EItem(itemType.Mouse, "mouse2", 7.5);
+    private final EItem mouse3 = new EItem(itemType.Mouse, "mouse3", 15);
     private final EItem kb1 = new EItem(itemType.Keyboard, "kb1", 15.0);
 
 
@@ -60,36 +61,36 @@ public class BillStdTest {
     }
     
     @Test(timeout = 500)
-    public void testGetProcesorNumber(){
+    public void testGetItemNumber(){
         billItems.add(cpu1);
         billItems.add(mb1);
         billItems.add(kb1);
 
-        assertEquals(1, bill.getProcessorNumber(billItems));
+        assertEquals(1, bill.getItemNumber(billItems, itemType.Processor));
     }
 
     @Test(timeout = 500)
-    public void testGetCheaperProcessorOnlyProcessors(){
+    public void testgetCheaperItemOnlyProcessors(){
         billItems.add(cpu1);
         billItems.add(cpu2);
         billItems.add(cpu3);
 
-        assertEquals(32.5, bill.getCheaperProcessor(billItems), 0.0);
+        assertEquals(32.5, bill.getCheaperItem(billItems, itemType.Processor), 0.0);
     }
 
     @Test(timeout = 500)
-    public void testGetCheaperProcessorMixedOrder(){
+    public void testgetCheaperItemMixedOrder(){
         billItems.add(cpu1);
         billItems.add(cpu4);
         billItems.add(mb1);
         billItems.add(mouse1);
         billItems.add(kb1);
 
-        assertEquals(45.5, bill.getCheaperProcessor(billItems), 0.0);
+        assertEquals(45.5, bill.getCheaperItem(billItems, itemType.Processor), 0.0);
     }
 
     @Test(timeout = 500)
-    public void testOrderPriceWithProcessorDiscountFiveProcessor() throws BillException{
+    public void testOrderPriceWithFiveProcessor() throws BillException{
         billItems.add(mouse2);
         billItems.add(cpu1);
         billItems.add(cpu2);
@@ -116,4 +117,48 @@ public class BillStdTest {
 
         assertEquals(296.94, bill.getOrderPrice(billItems),0.0);
     }
+
+    @Test(timeout = 500)
+    public void testOrderPriceWithElevenMouseGift() throws BillException {
+        billItems.add(mouse1);
+        billItems.add(mouse1);
+        billItems.add(mouse1);
+        billItems.add(kb1);
+        billItems.add(mouse2);
+        billItems.add(mouse2);
+        billItems.add(mouse2);
+        billItems.add(mouse3);
+        billItems.add(mouse3);
+        billItems.add(mouse3);
+        billItems.add(mouse3);
+        billItems.add(mouse3);
+        
+
+        assertEquals(135.0, bill.getOrderPrice(billItems), 0.0);
+    }
+    
+    @Test(timeout = 500)
+    public void testOrderPriceWithElevenMouseAndSixProcessors() throws BillException {
+        billItems.add(mouse3);
+        billItems.add(mouse3);
+        billItems.add(mouse3);
+        billItems.add(kb1);
+        billItems.add(mouse1);
+        billItems.add(mouse1);
+        billItems.add(mouse1);
+        billItems.add(mouse2);
+        billItems.add(mouse2);
+        billItems.add(mouse2);
+        billItems.add(mouse2);
+        billItems.add(mouse2);
+        billItems.add(cpu1);
+        billItems.add(cpu2);
+        billItems.add(cpu3);
+        billItems.add(cpu4);
+        billItems.add(cpu5);
+        billItems.add(cpu6);
+
+        assertEquals(384.44, bill.getOrderPrice(billItems), 0.0);
+    }
+
 }

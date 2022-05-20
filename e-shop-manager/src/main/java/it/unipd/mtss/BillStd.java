@@ -14,25 +14,24 @@ import it.unipd.mtss.business.Bill;
 
 public class BillStd implements Bill {
 
-    public int getProcessorNumber(List<EItem> itemsOrdered){
+    public int getItemNumber(List<EItem> itemsOrdered, itemType article){
 
         int k = 0;
-        int processorNumber = 0;
-
+        int itemNumber = 0;
         while(k < itemsOrdered.size()){
-            if(itemsOrdered.get(k).getItemType() == itemType.Processor) {
-                processorNumber++;
+            if(itemsOrdered.get(k).getItemType() == article) {
+                itemNumber++;
             }
             k++;
         }
-        return processorNumber;
+        return itemNumber;
     }
 
-    public double getCheaperProcessor(List<EItem> itemsOrdered){
+    public double getCheaperItem(List<EItem> itemsOrdered, itemType article){
         int j = 0;
         double priceOfCheaper  = Double.MAX_VALUE;
         while(j < itemsOrdered.size()){
-            if (itemsOrdered.get(j).getItemType() == itemType.Processor){
+            if (itemsOrdered.get(j).getItemType() == article){
                 if (itemsOrdered.get(j).getPrice() < priceOfCheaper){
                     priceOfCheaper = itemsOrdered.get(j).getPrice();
                 }
@@ -59,8 +58,12 @@ public class BillStd implements Bill {
             }
         }
 
-        if(getProcessorNumber(itemsOrdered) > 5){
-            tot = tot - getCheaperProcessor(itemsOrdered) / 2;
+        if(getItemNumber(itemsOrdered, itemType.Processor) > 5){
+            tot = tot - getCheaperItem(itemsOrdered, itemType.Processor) / 2;
+        }
+
+        if(getItemNumber(itemsOrdered, itemType.Mouse) > 10){
+            tot = tot - getCheaperItem(itemsOrdered, itemType.Mouse);
         }
 
         return tot;
