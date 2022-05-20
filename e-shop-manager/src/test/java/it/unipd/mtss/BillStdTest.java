@@ -95,12 +95,26 @@ public class BillStdTest {
     }
 
     @Test(timeout = 500)
-    public void testOrderPriceWithProcessorDiscount() throws BillException{
+    public void testOrderPriceWithProcessorDiscountFiveProcessor() throws BillException{
         billItems.add(mouse2);
         billItems.add(cpu1);
-        billItems.add(cpu2);        
+        billItems.add(cpu2);
         billItems.add(cpu3);
-        billItems.add(cpu4);        
+        billItems.add(cpu4);
+        billItems.add(cpu5);
+        billItems.add(mouse1);
+        billItems.add(kb1);
+
+        assertEquals(260.99, bill.getOrderPrice(billItems),0.0);
+    }
+
+    @Test(timeout = 500)
+    public void testOrderPriceWithProcessorDiscountSixProcessor() throws BillException{
+        billItems.add(mouse2);
+        billItems.add(cpu1);
+        billItems.add(cpu2);
+        billItems.add(cpu3);
+        billItems.add(cpu4);
         billItems.add(cpu5);
         billItems.add(cpu6);
         billItems.add(mouse1);
