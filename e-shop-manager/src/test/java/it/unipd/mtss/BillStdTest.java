@@ -6,20 +6,15 @@
 package it.unipd.mtss;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runners.parameterized.BlockJUnit4ClassRunnerWithParameters;
-import org.junit.Assert;
 import it.unipd.mtss.model.itemType;
 import it.unipd.mtss.model.EItem;
-import it.unipd.mtss.business.Bill;
 import it.unipd.mtss.business.exception.BillException;
-import it.unipd.mtss.BillStd;
 
 public class BillStdTest {
 
@@ -38,7 +33,6 @@ public class BillStdTest {
     private final EItem mouse1 = new EItem(itemType.Mouse, "mouse1", 10.0);
     private final EItem mouse2 = new EItem(itemType.Mouse, "mouse2", 7.5);
     private final EItem kb1 = new EItem(itemType.Keyboard, "kb1", 15.0);
-    private final EItem kb2 = new EItem(itemType.Keyboard, "kb2", 20.0);
 
 
     @Before
@@ -62,7 +56,7 @@ public class BillStdTest {
         billItems.add(mb2);
         billItems.add(new EItem(itemType.Processor, "invalidCpu", -1.0));
 
-        double tot = bill.getOrderPrice(billItems);
+        bill.getOrderPrice(billItems);
     }
 
     @Test(timeout = 500)
