@@ -30,7 +30,8 @@ public class BillStdTest {
     private final EItem mouse2 = new EItem(itemType.Mouse, "mouse2", 7.5);
     private final EItem mouse3 = new EItem(itemType.Mouse, "mouse3", 15);
     private final EItem kb1 = new EItem(itemType.Keyboard, "kb1", 15.0);
-    private final EItem kb2 = new EItem(itemType.Keyboard, "kb2", 12.0);
+    private final EItem kb2 = new EItem(itemType.Keyboard, "kb2", 12.0); 
+    private final EItem cpu8 = new EItem(itemType.Processor, "cpu8", 500.0);
 
 
     @Before
@@ -319,4 +320,39 @@ public class BillStdTest {
 
         assertEquals(billItems, gifts);
     }
+
+    @Test(timeout = 500)
+    public void testDiscountWithMoreThanOneThousand() throws BillException{
+        double discount = 0;
+        List <EItem> gifts;
+        gifts = new ArrayList<>();
+        billItems.add(cpu8);
+        billItems.add(cpu8);
+        billItems.add(cpu8);
+        billItems.add(cpu8);
+        billItems.add(cpu8);
+        billItems.add(cpu8);
+        billItems.add(cpu8);
+        billItems.add(cpu8);
+        discount = bill.calcTotalDiscount(billItems, gifts);
+        assertEquals(200.0, discount, 0.0);
+    }
+    
+    @Test(timeout = 500)
+    public void testDiscountAndGiftsWithMoreThanOneThousandPrice() throws BillException {
+        double discount = 0;
+        List<EItem> gifts;
+        gifts = new ArrayList<>();
+        billItems.add(cpu8);
+        billItems.add(cpu8);
+        billItems.add(cpu8);
+        billItems.add(cpu8);
+        discount = bill.calcTotalDiscount(billItems, gifts);
+        assertEquals(200.0, discount, 0.0);
+    }
+
+    
+
+
+
 }

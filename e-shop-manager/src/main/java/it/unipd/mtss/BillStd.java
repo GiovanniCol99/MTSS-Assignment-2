@@ -71,12 +71,15 @@ public class BillStd implements Bill {
     }
 
     //calculates discount of an order
-    public double calcTotalDiscount(List<EItem> itemsOrdered, List<EItem> itemsGifted){
+    public double calcTotalDiscount(List<EItem> itemsOrdered, List<EItem> itemsGifted) throws BillException{
         double discount = 0;
         if(getItemNumber(itemsOrdered, itemType.Processor) > 5){
             if(!itemsGifted.contains(getCheaperItem(itemsOrdered, itemType.Processor))){ //if item isn't already gifted
                 discount += (getCheaperItem(itemsOrdered, itemType.Processor).getPrice() / 2);
             }
+        }
+        if(getListPrice(itemsOrdered) > 1000){
+            discount += (getListPrice(itemsOrdered) / 10);
         }
         return discount;
     }
