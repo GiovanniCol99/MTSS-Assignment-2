@@ -75,9 +75,7 @@ public class BillStd implements Bill {
         double discount = 0;
         if(getItemNumber(itemsOrdered, itemType.Processor) > 5){
             if(!itemsGifted.contains(getCheaperItem(itemsOrdered, itemType.Processor))){ //if item isn't already gifted
-                System.out.println(discount);
                 discount += (getCheaperItem(itemsOrdered, itemType.Processor).getPrice() / 2);
-                System.out.println(discount);
             }
         }
         return discount;
@@ -97,7 +95,7 @@ public class BillStd implements Bill {
         }
 
         calcTotalGifts(itemsGifted, itemsOrdered);
-        discount += calcTotalDiscount( itemsOrdered, itemsGifted);
+        discount += calcTotalDiscount(itemsOrdered, itemsGifted);
 
         return total - discount - getListPrice(itemsGifted);
     }

@@ -197,15 +197,22 @@ public class BillStdTest {
         assertEquals(10.0, bill.getCheaperItemOverall(billItems).getPrice(), 0.0);
     }
 
-    @Test(timeout = 500)
-    public void testOrderPriceWithTwoMuosesTwoKeyboards() throws BillException{
+    @Test(timeout = 500) //change to gift
+    public void testCalcToalGiftsWithTwoMuosesTwoKeyboards() throws BillException{
+        List<EItem> gifts;
+        gifts = new ArrayList<>();
+        List<EItem> giftedItems;
+        giftedItems = new ArrayList<>();
+        gifts.add(mouse2);
         billItems.add(mouse1);
         billItems.add(mouse2);
         billItems.add(kb1);
         billItems.add(kb2);
         billItems.add(cpu1);
+        
+        bill.calcTotalGifts(giftedItems, billItems);
 
-        assertEquals(82.5, bill.getOrderPrice(billItems), 0.0);
+        assertEquals(gifts, giftedItems);
     }
 
     @Test(timeout = 500)
@@ -247,7 +254,7 @@ public class BillStdTest {
     }    
     
     @Test(timeout = 500)
-    public void testOrderPriceWithElevenMuosesElevenKeyboardsSixProcessors() throws BillException{
+    public void testOrderPriceWithGiftsAndDIscount() throws BillException{
         billItems.add(mouse1);
         billItems.add(mouse2);
         billItems.add(kb1);
