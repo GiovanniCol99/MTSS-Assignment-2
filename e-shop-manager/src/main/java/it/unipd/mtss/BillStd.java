@@ -97,7 +97,21 @@ public class BillStd implements Bill {
         calcTotalGifts(itemsGifted, itemsOrdered);
         discount += calcTotalDiscount(itemsOrdered, itemsGifted);
 
+        if(checkMoreThanThirtyElements(itemsOrdered)){
+            throw new BillException("invalid order: you cannot order more than 30 items");
+        }
+
         return total - discount - getListPrice(itemsGifted);
+    }
+
+    //if order contains more tha 30 items, throw exception
+    public boolean checkMoreThanThirtyElements(List<EItem> items){
+        if(items.size() > 30){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     //if item isn't already gifted, item is added to itemsGifted

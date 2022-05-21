@@ -319,4 +319,31 @@ public class BillStdTest {
 
         assertEquals(billItems, gifts);
     }
+
+    @Test(timeout = 500)
+    public void testCheckMoreThanThirtyElementsTrue(){
+        for(int i = 0; i < 31; i++){
+            billItems.add(cpu1);
+        }
+        assertEquals(true, bill.checkMoreThanThirtyElements(billItems));
+    
+    }
+
+    @Test(timeout = 500)
+    public void testCheckMoreThanThirtyElementsFalse(){
+        for(int i = 0; i < 30; i++){
+            billItems.add(cpu1);
+        }
+        assertEquals(false, bill.checkMoreThanThirtyElements(billItems));
+    
+    }
+
+    @Test(timeout = 500, expected = BillException.class)
+    public void testOrderPriceOrderTooBig() throws BillException{
+        for(int i = 0; i < 31; i++){
+            billItems.add(cpu1);
+        }
+
+        bill.getOrderPrice(billItems);
+    }
 }
