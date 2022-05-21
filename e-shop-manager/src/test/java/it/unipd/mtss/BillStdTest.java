@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 import it.unipd.mtss.model.itemType;
 import it.unipd.mtss.model.EItem;
 import it.unipd.mtss.business.exception.BillException;
@@ -40,6 +43,9 @@ public class BillStdTest {
         billPrice = 0.0;
     }
 
+    @Rule
+    public ExpectedException exceptionRule = ExpectedException.none();
+
     @Test(timeout = 500)
     public void testGetOrderPriceWithValidValues() throws BillException {
         billItems.add(cpu1);
@@ -49,17 +55,23 @@ public class BillStdTest {
         assertEquals(81.0, bill.getOrderPrice(billItems), 0.0);
     }
 
-    @Test(expected = BillException.class, timeout = 500)
-    public void testGetListPriseWithInvalidPriceValue() throws BillException {
+    @Test(timeout = 500)
+    public void testGetListPriseWithInvalidPriceValue() throws BillException{
         billItems.add(cpu1);
         billItems.add(mb2);
         billItems.add(new EItem(itemType.Processor, "invalidCpu", -1.0));
 
+        exceptionRule.expect(BillException.class);
+        exceptionRule.expectMessage("invalid price value: negative value");
+
         bill.getListPrice(billItems);
     }
 
-    @Test(expected = BillException.class, timeout = 500)
+    @Test(timeout = 500)
     public void testGetOrderPriceWithNoItem() throws BillException {
+        exceptionRule.expect(BillException.class);
+        exceptionRule.expectMessage("invalid list size: 0 items");
+
         bill.getOrderPrice(billItems);
     }
     
@@ -198,7 +210,7 @@ public class BillStdTest {
         assertEquals(10.0, bill.getCheaperItemOverall(billItems).getPrice(), 0.0);
     }
 
-    @Test(timeout = 500) //change to gift
+    @Test(timeout = 500)
     public void testCalcToalGiftsWithTwoMuosesTwoKeyboards() throws BillException{
         List<EItem> gifts;
         gifts = new ArrayList<>();
@@ -357,11 +369,13 @@ public class BillStdTest {
     
     }
 
-    @Test(timeout = 500, expected = BillException.class)
+    @Test(timeout = 500)
     public void testOrderPriceOrderTooBig() throws BillException{
         for(int i = 0; i < 31; i++){
             billItems.add(cpu1);
         }
+        exceptionRule.expect(BillException.class);
+        exceptionRule.expectMessage("invalid order: you cannot order more than 30 items");
 
         bill.getOrderPrice(billItems);
     }
