@@ -320,24 +320,7 @@ public class BillStdTest {
 
         assertEquals(billItems, gifts);
     }
-
-    @Test(timeout = 500)
-    public void testDiscountWithMoreThanOneThousand() throws BillException{
-        double discount = 0;
-        List <EItem> gifts;
-        gifts = new ArrayList<>();
-        billItems.add(cpu8);
-        billItems.add(cpu8);
-        billItems.add(cpu8);
-        billItems.add(cpu8);
-        billItems.add(cpu8);
-        billItems.add(cpu8);
-        billItems.add(cpu8);
-        billItems.add(cpu8);
-        discount = bill.calcTotalDiscount(billItems, gifts);
-        assertEquals(200.0, discount, 0.0);
-    }
-    
+      
     @Test(timeout = 500)
     public void testDiscountAndGiftsWithMoreThanOneThousandPrice() throws BillException {
         double discount = 0;
