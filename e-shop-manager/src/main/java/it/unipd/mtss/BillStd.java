@@ -84,11 +84,22 @@ public class BillStd implements Bill {
         return discount;
     }
 
+    public int calcCommission(List<EItem> itemsOrdered) throws BillException{
+        if(getListPrice(itemsOrdered) < 10){
+            return 2;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
     //calculates price of an order
     public double getOrderPrice(List<EItem> itemsOrdered) throws BillException{
         List<EItem> itemsGifted = new ArrayList<>();
         double discount = 0;
         double total = 0;
+
 
         if(itemsOrdered.size() == 0){
             throw new BillException("invalid list size: 0 items");
@@ -103,8 +114,7 @@ public class BillStd implements Bill {
         if(checkMoreThanThirtyElements(itemsOrdered)){
             throw new BillException("invalid order: you cannot order more than 30 items");
         }
-
-        return total - discount - getListPrice(itemsGifted);
+        return total + calcCommission(itemsOrdered) - discount - getListPrice(itemsGifted);
     }
 
     //if order contains more tha 30 items, throw exception

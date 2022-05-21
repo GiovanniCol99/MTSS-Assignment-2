@@ -334,7 +334,7 @@ public class BillStdTest {
     }
       
     @Test(timeout = 500)
-    public void testDiscountAndGiftsWithMoreThanOneThousandPrice() throws BillException {
+    public void testOrderMoreThanOneThousandPrice() throws BillException {
         double discount = 0;
         List<EItem> gifts;
         gifts = new ArrayList<>();
@@ -345,11 +345,6 @@ public class BillStdTest {
         discount = bill.calcTotalDiscount(billItems, gifts);
         assertEquals(200.0, discount, 0.0);
     }
-
-    
-
-
-
 
     @Test(timeout = 500)
     public void testCheckMoreThanThirtyElementsTrue(){
@@ -379,4 +374,11 @@ public class BillStdTest {
 
         bill.getOrderPrice(billItems);
     }
+
+    @Test(timeout = 500)
+    public void testOrderWithCommission() throws BillException{
+        billItems.add(mouse2);
+        assertEquals(2, bill.calcCommission(billItems));
+    }
+    
 }
