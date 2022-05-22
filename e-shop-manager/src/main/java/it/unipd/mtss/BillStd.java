@@ -9,12 +9,45 @@ import it.unipd.mtss.model.EItem;
 import it.unipd.mtss.model.itemType;
 import it.unipd.mtss.business.exception.BillException;
 
+import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 import it.unipd.mtss.model.User;
+
 import it.unipd.mtss.business.Bill;
 
 public class BillStd implements Bill {
+
+    List<User> userList = new ArrayList<>();
+
+    //checks if order can be gifted
+    public boolean giftOrder(User user, LocalDateTime orderDateTime){
+        LocalDate currentDate = LocalDate.now();
+        LocalTime minTime = LocalTime.of(18, 00, 00, 00000);
+        LocalTime maxTime = LocalTime.of(19, 00, 00, 00000);
+        LocalDateTime min = LocalDateTime.of(currentDate, minTime); //today at 18.00
+        LocalDateTime max = LocalDateTime.of(currentDate, maxTime); //today at 19.00
+        if(orderDateTime.isAfter(min) && orderDateTime.isBefore(max)){ // order time is between 18.00 and 19.00 of today
+            if(user.getAge() < 18){ // user is a minor
+                if(!userList.contains(user)){ // user hasn't already received a gift
+                    if(userList.size() < 10){ // less than 10 gift have been given
+                        //user gets a chance to win a gift
+
+                        int casuale = (int)(Math.random()*5);
+                        if(casuale == 5){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    LocalDate currentDate = LocalDate.now();
+    LocalTime currentTime = LocalTime.now();
+    LocalDateTime fromDateAndTime = LocalDateTime.of(currentDate, currentTime);
 
     //return number of items of a certain itemType in an item list
     public int getItemNumber(List<EItem> itemsOrdered, itemType article){
@@ -106,6 +139,10 @@ public class BillStd implements Bill {
         }
         else{
             total += getListPrice(itemsOrdered);
+        }
+
+        if(giftOrder(user, LocalDateTime.now())){
+            return 0;
         }
 
         calcTotalGifts(itemsGifted, itemsOrdered);
