@@ -11,7 +11,7 @@ import it.unipd.mtss.business.exception.BillException;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import it.unipd.mtss.model.User;
 import it.unipd.mtss.business.Bill;
 
 public class BillStd implements Bill {
@@ -95,7 +95,7 @@ public class BillStd implements Bill {
     }
 
     //calculates price of an order
-    public double getOrderPrice(List<EItem> itemsOrdered) throws BillException{
+    public double getOrderPrice(List<EItem> itemsOrdered, User user) throws BillException{
         List<EItem> itemsGifted = new ArrayList<>();
         double discount = 0;
         double total = 0;
