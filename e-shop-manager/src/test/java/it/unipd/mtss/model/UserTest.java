@@ -1,6 +1,6 @@
 package it.unipd.mtss.model;
 
-import java.time.*;
+import java.time.LocalDate;
 
 import org.junit.Test;
 import org.junit.Rule;

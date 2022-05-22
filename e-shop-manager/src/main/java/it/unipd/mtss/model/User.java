@@ -5,7 +5,8 @@
 
 package it.unipd.mtss.model;
 import java.lang.IllegalArgumentException;
-import java.time.*;
+import java.time.LocalDate;
+import java.time.Period;
 
 public class User{
     int id;
