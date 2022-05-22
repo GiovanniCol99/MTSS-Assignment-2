@@ -5,7 +5,7 @@ import java.time.*;
 import org.junit.Test;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
-import it.unipd.mtss.business.exception.UserException;
+import java.lang.IllegalArgumentException;;
 
 public class UserTest {
 
@@ -13,12 +13,12 @@ public class UserTest {
     public ExpectedException exceptionRule = ExpectedException.none();
 
     @Test
-    public void testUser() throws UserException {
+    public void testUserInvalidbirthDate(){
 
-        exceptionRule.expect(UserException.class);
+        exceptionRule.expect(IllegalArgumentException.class);
         exceptionRule.expectMessage("birth date invalid");
 
-        new User(1, "prova", "prova", LocalDate.of(1999, 6, 27));
+        new User(1, "prova", "prova", LocalDate.of(2022, 12,1));
         
     }
 }

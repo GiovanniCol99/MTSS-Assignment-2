@@ -1,7 +1,9 @@
-package it.unipd.mtss;
+package it.unipd.mtss.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +12,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import it.unipd.mtss.model.itemType;
-import it.unipd.mtss.model.EItem;
 import it.unipd.mtss.business.exception.BillException;
 
 public class BillStdTest {
@@ -35,7 +35,17 @@ public class BillStdTest {
     private final EItem kb1 = new EItem(itemType.Keyboard, "kb1", 15.0);
     private final EItem kb2 = new EItem(itemType.Keyboard, "kb2", 12.0); 
     private final EItem cpu8 = new EItem(itemType.Processor, "cpu8", 500.0);
-
+    private final User utente1 = new User(1, "prova", "prova", LocalDate.of(1999, 6, 27));
+    private final User utente2 = new User(2, "prova", "prova", LocalDate.of(1999, 6, 27));
+    private final User utente3 = new User(3, "prova", "prova", LocalDate.of(1999, 6, 27));
+    private final User utente4 = new User(4, "prova", "prova", LocalDate.of(1999, 6, 27));
+    private final User utente5 = new User(5, "prova", "prova", LocalDate.of(1999, 6, 27));
+    private final User utente6 = new User(6, "prova", "prova", LocalDate.of(1999, 6, 27));
+    private final User utente7 = new User(7, "prova", "prova", LocalDate.of(1999, 6, 27));
+    private final User utente8 = new User(8, "prova", "prova", LocalDate.of(1999, 6, 27));
+    private final User utente9 = new User(9, "prova", "prova", LocalDate.of(1999, 6, 27));
+    private final User utente10 = new User(10, "prova", "prova", LocalDate.of(1999, 6, 27));
+    private final User underAgeUser = new User(11, "nome", "cognome", LocalDate.of(2010, 1, 1));
 
     @Before
     public void Init() {
@@ -47,12 +57,12 @@ public class BillStdTest {
     public ExpectedException exceptionRule = ExpectedException.none();
 
     @Test(timeout = 500)
-    public void testGetOrderPriceWithValidValues() throws BillException {
+    public void testGetOrderPriceWithValidValues() throws BillException{
         billItems.add(cpu1);
         billItems.add(mb2);
         billItems.add(kb1);
 
-        assertEquals(81.0, bill.getOrderPrice(billItems), 0.0);
+        assertEquals(81.0, bill.getOrderPrice(billItems, utente1), 0.0);
     }
 
     @Test(timeout = 500)
@@ -72,7 +82,7 @@ public class BillStdTest {
         exceptionRule.expect(BillException.class);
         exceptionRule.expectMessage("invalid list size: 0 items");
 
-        bill.getOrderPrice(billItems);
+        bill.getOrderPrice(billItems, utente1);
     }
     
     @Test(timeout = 500)
@@ -297,7 +307,7 @@ public class BillStdTest {
         billItems.add(cpu6);
         billItems.add(cpu7);
 
-        assertEquals(470.69, bill.getOrderPrice(billItems), 0.0);
+        assertEquals(470.69, bill.getOrderPrice(billItems, utente1), 0.0);
     }  
 
     @Test(timeout = 500)
@@ -372,7 +382,7 @@ public class BillStdTest {
         exceptionRule.expect(BillException.class);
         exceptionRule.expectMessage("invalid order: you cannot order more than 30 items");
 
-        bill.getOrderPrice(billItems);
+        bill.getOrderPrice(billItems, utente1);
     }
 
     @Test(timeout = 500)
@@ -380,5 +390,76 @@ public class BillStdTest {
         billItems.add(mouse2);
         assertEquals(2, bill.calcCommission(billItems));
     }
+
+    @Test(timeout = 500)
+    public void testWinGift(){
+
+        int countGift = 0;
+        for(int i = 0; i < 10; i++){
+            boolean gifted = bill.giftWin(utente1);
+            if(gifted){
+                countGift++;
+            }
+        }
+
+        boolean atLeastOneGift = false;
+        if(countGift > 1){
+            atLeastOneGift = true;
+        }
+
+        assertTrue(atLeastOneGift);
+        assertTrue(bill.userList.contains(utente1));
+    }
+
+    @Test(timeout = 500)
+    public void testOrderCanBeGiftedTrue(){
+
+        assertTrue(bill.orderCanBeGifted(underAgeUser, LocalDateTime.of(LocalDate.now(), LocalTime.of(18, 30))));
+    }
+
+    //test fail already 10 gifts
+    @Test(timeout = 500)
+    public void testOrderCanBeGiftedfalseAlreadyTenGifts(){
+        bill.userList.add(utente1);
+        bill.userList.add(utente2);
+        bill.userList.add(utente3);
+        bill.userList.add(utente4);
+        bill.userList.add(utente5);
+        bill.userList.add(utente6);
+        bill.userList.add(utente7);
+        bill.userList.add(utente8);
+        bill.userList.add(utente9);
+        bill.userList.add(utente10);
+
+        assertTrue(!bill.orderCanBeGifted(underAgeUser, LocalDateTime.of(LocalDate.now(), LocalTime.of(18, 30))));
+    }
     
+    //test fail already gifted to user
+    @Test(timeout = 500)
+    public void testOrderCanBeGiftedfalseAlreadyGiftedToUser(){
+        bill.userList.add(underAgeUser);
+
+        assertTrue(!bill.orderCanBeGifted(underAgeUser, LocalDateTime.of(LocalDate.now(), LocalTime.of(18, 30))));
+    }
+
+    //test fail user not underage
+    @Test(timeout = 500)
+    public void testOrderCanBeGiftedfalseUserNotUnderage(){
+
+        assertTrue(!bill.orderCanBeGifted(utente1, LocalDateTime.of(LocalDate.now(), LocalTime.of(18, 30))));
+    }
+
+    //test fail not in correct time
+    @Test(timeout = 500)
+    public void testOrderCanBeGiftedfalseOrderNotIntimeWindow(){
+
+        assertTrue(!bill.orderCanBeGifted(underAgeUser, LocalDateTime.of(LocalDate.now(), LocalTime.of(17, 30))));
+    }
+
+    @Test(timeout = 500)
+    public void testOrderPriceOrderGifted() throws BillException{
+        billItems.add(cpu1);
+
+        assertEquals(0, bill.getOrderPrice(billItems, underAgeUser), 0.0);
+    }
 }

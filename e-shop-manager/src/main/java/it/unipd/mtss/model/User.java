@@ -1,5 +1,5 @@
 package it.unipd.mtss.model;
-import it.unipd.mtss.business.exception.UserException;
+import java.lang.IllegalArgumentException;
 import java.time.*;
 
 public class User{
@@ -7,14 +7,14 @@ public class User{
     String name, surname;
     LocalDate birthDate;
 
-    public User(int id, String name, String surname, LocalDate birthDate) throws UserException{
+    public User (int id, String name, String surname, LocalDate birthDate) throws IllegalArgumentException{
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
 
-        if(birthDate.isBefore(LocalDate.now())){
-            throw new UserException("birth date invalid");
+        if(birthDate.isAfter(LocalDate.now())){
+            throw new IllegalArgumentException("birth date invalid");
         }
     }
 
