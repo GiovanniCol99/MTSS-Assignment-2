@@ -7,8 +7,8 @@ package it.unipd.mtss.business;
 
 import java.util.List;
 import it.unipd.mtss.model.EItem;
-import it.unipd.mtss.model.itemType;
-
+import it.unipd.mtss.business.exception.BillException;
+import it.unipd.mtss.model.User;
 public interface Bill {
-    int getItemNumber(List<EItem> itemsOrdered, itemType article);
+    double getOrderPrice(List<EItem> itemsOrdered, User user) throws BillException;
 }
