@@ -1,6 +1,6 @@
 package it.unipd.mtss.model;
-import java.time.LocalDate;
 import it.unipd.mtss.business.exception.BillException;
+import java.time.*;
 
 public class User{
     int id;
@@ -36,6 +36,11 @@ public class User{
 
     public LocalDate getBirthDate(){
         return birthDate;
+    }
+
+    public int getAge(){
+        LocalDate today = LocalDate.now();
+        return Period.between(birthDate, today).getYears();
     }
 
 }
