@@ -53,6 +53,7 @@ public class BillStdTest {
     public void Init() {
         billItems = new ArrayList<>();
         billPrice = 0.0;
+        bill.userList.clear();
     }
 
     @Rule
