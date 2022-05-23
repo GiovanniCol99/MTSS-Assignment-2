@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.ZoneId;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -415,8 +416,8 @@ public class BillStdTest {
 
     @Test(timeout = 500)
     public void testOrderCanBeGiftedTrue(){
-
-        assertTrue(bill.orderCanBeGifted(underAgeUser, LocalDateTime.of(LocalDate.now(), LocalTime.of(18, 30))));
+        ZoneId zone1 = ZoneId.of("Asia/Tokyo");
+        assertTrue(bill.orderCanBeGifted(underAgeUser, LocalDateTime.of(LocalDate.now(zone1), LocalTime.of(18, 30))));
     }
 
     //test fail already 10 gifts
@@ -432,7 +433,6 @@ public class BillStdTest {
         bill.userList.add(utente8);
         bill.userList.add(utente9);
         bill.userList.add(utente10);
-
         assertTrue(!bill.orderCanBeGifted(underAgeUser, LocalDateTime.of(LocalDate.now(), LocalTime.of(18, 30))));
     }
     
