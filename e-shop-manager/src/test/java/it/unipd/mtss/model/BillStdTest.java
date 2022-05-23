@@ -53,7 +53,6 @@ public class BillStdTest {
     public void Init() {
         billItems = new ArrayList<>();
         billPrice = 0.0;
-        bill.userList.clear();
     }
 
     @Rule
@@ -406,6 +405,17 @@ public class BillStdTest {
     public void testOrderCanBeGiftedTrue(){
 
         assertTrue(bill.orderCanBeGifted(underAgeUser, LocalDateTime.of(LocalDate.now(), LocalTime.of(18, 30))));
+    }
+
+    @Test(timeout = 500)
+    public void testOrderCanBeGiftedAndIsGifted() throws BillException{
+        billItems.add(cpu1);
+        double tot = 99;
+        while(tot != 0){ //forse giftOrder
+            tot = bill.getOrderPrice(billItems, underAgeUser);
+        }
+
+        assertEquals(tot, 0.00, 0.00);
     }
 
     //test fail already 10 gifts
