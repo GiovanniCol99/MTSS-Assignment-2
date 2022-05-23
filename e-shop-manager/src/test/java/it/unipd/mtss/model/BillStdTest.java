@@ -411,10 +411,9 @@ public class BillStdTest {
         assertTrue(bill.orderCanBeGifted(underAgeUser, LocalDateTime.of(LocalDate.now(), LocalTime.of(18, 30))));
     }
 
-    @Test(timeout = 5000)
+    @Test(timeout = 500)
     public void testOrderCanBeGiftedAndIsGifted() throws BillException{
-        bill.clock = Clock.fixed(Instant.parse("2022-05-23T16:30:00.000Z"), ZoneId.systemDefault());
-        System.out.println(LocalDateTime.now(bill.clock));
+        bill.clock = Clock.fixed(Instant.parse("2022-05-23T18:30:00.000Z"), ZoneId.systemDefault());
         billItems.add(cpu1);
         billItems.add(mouse1);
         double tot = 99;
