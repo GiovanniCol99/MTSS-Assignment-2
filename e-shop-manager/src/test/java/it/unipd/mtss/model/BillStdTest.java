@@ -416,8 +416,7 @@ public class BillStdTest {
 
     @Test(timeout = 500)
     public void testOrderCanBeGiftedTrue(){
-        ZoneId zone1 = ZoneId.of("Asia/Tokyo");
-        assertTrue(bill.orderCanBeGifted(underAgeUser, LocalDateTime.of(LocalDate.now(zone1), LocalTime.of(18, 30))));
+        assertTrue(bill.orderCanBeGifted(underAgeUser, LocalDateTime.of(LocalDate.now(), LocalTime.of(18, 30))));
     }
 
     //test fail already 10 gifts
