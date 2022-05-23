@@ -53,6 +53,7 @@ public class BillStdTest {
     public void Init() {
         billItems = new ArrayList<>();
         billPrice = 0.0;
+        bill.userList.clear();
     }
 
     @Rule
@@ -65,18 +66,6 @@ public class BillStdTest {
         billItems.add(kb1);
 
         assertEquals(81.0, bill.getOrderPrice(billItems, utente1), 0.0);
-    }
-
-    @Test(timeout = 500)
-    public void testGetListPriseWithInvalidPriceValue() throws BillException{
-        billItems.add(cpu1);
-        billItems.add(mb2);
-        billItems.add(new EItem(itemType.Processor, "invalidCpu", -1.0));
-
-        exceptionRule.expect(BillException.class);
-        exceptionRule.expectMessage("invalid price value: negative value");
-
-        bill.getListPrice(billItems);
     }
 
     @Test(timeout = 500)

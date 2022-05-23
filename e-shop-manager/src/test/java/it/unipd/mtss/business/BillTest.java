@@ -3,7 +3,7 @@ package it.unipd.mtss.business;
 import org.junit.Test;
 
 public class BillTest {
-    @Test
+    @Test(timeout = 500)
     public void testGetOrderPrice() {
 
     }

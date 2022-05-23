@@ -184,13 +184,8 @@ public class BillStd implements Bill {
         int i = 0;
 
         while(i < items.size()){
-            if(items.get(i).getPrice() < 0) {
-                throw new BillException("invalid price value: negative value");
-            }
-            else{
             tot += items.get(i).getPrice();
             i++;
-            }
         }
         return tot;
     }

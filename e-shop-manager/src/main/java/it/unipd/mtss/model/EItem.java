@@ -5,6 +5,7 @@
 
 package it.unipd.mtss.model;
 
+import java.lang.IllegalArgumentException;
 
 public class EItem {
     itemType article;
@@ -12,9 +13,23 @@ public class EItem {
     double price;
 
     public EItem(itemType article, String name, double price) {
-        this.article = article;
-        this.name = name;
-        this.price = price;
+        if(article != null){
+            this.article = article;}
+            else{
+                throw new IllegalArgumentException("article type of an item cannot be null");
+            }
+        if(name != null){
+            this.name = name;
+        }
+        else{
+            throw new IllegalArgumentException("name of an item cannot be null");
+        }
+        if(price >= 0){
+            this.price = price;
+        }
+        else{
+            throw new IllegalArgumentException("price of an item must be a positive number");
+        }
     }
 
     public double getPrice(){
@@ -23,5 +38,9 @@ public class EItem {
 
     public itemType getItemType(){
         return article;
+    }
+
+    public String getName(){
+        return name;
     }
 }
