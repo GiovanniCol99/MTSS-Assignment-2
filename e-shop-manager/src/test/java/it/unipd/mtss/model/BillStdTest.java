@@ -413,7 +413,7 @@ public class BillStdTest {
 
     @Test(timeout = 500)
     public void testOrderCanBeGiftedAndIsGifted() throws BillException{
-        bill.clock = Clock.fixed(Instant.parse("2022-05-23T18:30:00.000Z"), ZoneId.systemDefault());
+        bill.clock = Clock.fixed(Instant.parse("2022-05-23T16:30:00.000Z"), ZoneId.of("Europe/Rome"));
         billItems.add(cpu1);
         billItems.add(mouse1);
         double tot = 99;
