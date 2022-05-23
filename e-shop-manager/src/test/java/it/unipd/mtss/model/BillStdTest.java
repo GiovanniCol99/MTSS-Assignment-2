@@ -413,14 +413,16 @@ public class BillStdTest {
 
     @Test(timeout = 500)
     public void testOrderCanBeGiftedAndIsGifted() throws BillException{
-        bill.clock = Clock.fixed(Instant.parse("2022-05-23T10:18:30.00Z"), ZoneId.systemDefault());
+        bill.clock = Clock.fixed(Instant.parse("2022-05-23T16:30:00.000Z"), ZoneId.systemDefault());
+        System.out.println(LocalDateTime.now(bill.clock));
         billItems.add(cpu1);
+        billItems.add(mouse1);
         double tot = 99;
         while(tot != 0.00){ //force giftOrder
-            tot = bill.getOrderPrice(billItems, underAgeUser);
+             tot = bill.getOrderPrice(billItems, underAgeUser);
         }
 
-        assertEquals(tot, 0.00, 0.00);
+         assertEquals(tot, 0.00, 0.00);
     }
 
     //test fail already 10 gifts
