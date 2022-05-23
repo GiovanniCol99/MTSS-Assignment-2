@@ -411,7 +411,7 @@ public class BillStdTest {
         assertTrue(bill.orderCanBeGifted(underAgeUser, LocalDateTime.of(LocalDate.now(), LocalTime.of(18, 30))));
     }
 
-    @Test(timeout = 500)
+    @Test(timeout = 5000)
     public void testOrderCanBeGiftedAndIsGifted() throws BillException{
         bill.clock = Clock.fixed(Instant.parse("2022-05-23T16:30:00.000Z"), ZoneId.systemDefault());
         System.out.println(LocalDateTime.now(bill.clock));
@@ -421,7 +421,6 @@ public class BillStdTest {
         while(tot != 0.00){ //force giftOrder
              tot = bill.getOrderPrice(billItems, underAgeUser);
         }
-
          assertEquals(tot, 0.00, 0.00);
     }
 
