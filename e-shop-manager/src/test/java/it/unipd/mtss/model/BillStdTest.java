@@ -3,9 +3,12 @@ package it.unipd.mtss.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -410,9 +413,10 @@ public class BillStdTest {
 
     @Test(timeout = 500)
     public void testOrderCanBeGiftedAndIsGifted() throws BillException{
+        bill.clock = Clock.fixed(Instant.parse("2022-05-23T10:18:30.00Z"), ZoneId.systemDefault());
         billItems.add(cpu1);
         double tot = 99;
-        while(tot != 0){ //force giftOrder
+        while(tot != 0.00){ //force giftOrder
             tot = bill.getOrderPrice(billItems, underAgeUser);
         }
 

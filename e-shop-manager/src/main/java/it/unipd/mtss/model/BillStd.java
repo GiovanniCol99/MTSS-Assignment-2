@@ -7,9 +7,11 @@ package it.unipd.mtss.model;
 
 import it.unipd.mtss.business.exception.BillException;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,6 +21,7 @@ import it.unipd.mtss.business.Bill;
 public class BillStd implements Bill {
 
     List<User> userList = new ArrayList<>();
+    Clock clock = Clock.system(ZoneId.systemDefault());
 
     //checks if order can be gifted
     public boolean orderCanBeGifted(User user, LocalDateTime orderDateTime){
@@ -138,7 +141,6 @@ public class BillStd implements Bill {
         double discount = 0;
         double total = 0;
 
-
         if(itemsOrdered.size() == 0){
             throw new BillException("invalid list size: 0 items");
         }
@@ -154,7 +156,7 @@ public class BillStd implements Bill {
         }
         total = total + calcCommission(itemsOrdered) - discount - getListPrice(itemsGifted);
 
-        if(orderCanBeGifted(user, LocalDateTime.now())){
+        if(orderCanBeGifted(user, LocalDateTime.now(clock))){
             return giftWin(user, total);
         }
         else{
