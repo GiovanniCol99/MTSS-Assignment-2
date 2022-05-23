@@ -40,14 +40,14 @@ public class BillStd implements Bill {
         return false;
     }
 
-    public boolean giftWin(User user){
+    public double giftWin(User user, double totalOrderPrice){
         Random rnd = new Random();
         boolean check = rnd.nextBoolean();
         if(check){
             this.userList.add(user);
-            return true;
+            return 0;
         }
-        return false;
+        return totalOrderPrice;
     }
 
     LocalDate currentDate = LocalDate.now();
@@ -146,19 +146,21 @@ public class BillStd implements Bill {
             total += getListPrice(itemsOrdered);
         }
 
-        if(orderCanBeGifted(user, LocalDateTime.now())){
-            if(giftWin(user)){
-                return 0;
-            }
-        }
-
         calcTotalGifts(itemsGifted, itemsOrdered);
         discount += calcTotalDiscount(itemsOrdered, itemsGifted);
 
         if(checkMoreThanThirtyElements(itemsOrdered)){
             throw new BillException("invalid order: you cannot order more than 30 items");
         }
-        return total + calcCommission(itemsOrdered) - discount - getListPrice(itemsGifted);
+        total = total + calcCommission(itemsOrdered) - discount - getListPrice(itemsGifted);
+
+        if(orderCanBeGifted(user, LocalDateTime.now())){
+            return giftWin(user, total);
+        }
+        else{
+            return total;
+        }
+
     }
 
     //if order contains more tha 30 items, throw exception
@@ -187,6 +189,7 @@ public class BillStd implements Bill {
             tot += items.get(i).getPrice();
             i++;
         }
+
         return tot;
     }
 }

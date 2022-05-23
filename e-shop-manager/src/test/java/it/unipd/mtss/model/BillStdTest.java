@@ -387,8 +387,8 @@ public class BillStdTest {
 
         int countGift = 0;
         for(int i = 0; i < 10; i++){
-            boolean gifted = bill.giftWin(utente1);
-            if(gifted){
+            double gifted = bill.giftWin(utente1, 1000);
+            if(gifted == 0){
                 countGift++;
             }
         }
@@ -412,7 +412,7 @@ public class BillStdTest {
     public void testOrderCanBeGiftedAndIsGifted() throws BillException{
         billItems.add(cpu1);
         double tot = 99;
-        while(tot != 0){ //forse giftOrder
+        while(tot != 0){ //force giftOrder
             tot = bill.getOrderPrice(billItems, underAgeUser);
         }
 
